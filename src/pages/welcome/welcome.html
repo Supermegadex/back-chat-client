@@ -1,0 +1,35 @@
+<ion-content>
+  <ion-slides pager>
+    <ion-slide>
+      <!-- <ion-toolbar>
+        <ion-buttons end>
+          <button ion-button color="primary">Skip</button>
+        </ion-buttons>
+      </ion-toolbar> -->
+      <h1 class="slide-title">Welcome to Back Chat!</h1>
+      <p>
+        In just a few steps, you can enjoy a fun and engaging backchannel
+        with your class or friends.
+      </p>
+    </ion-slide>
+    <ion-slide class="skippable" *ngFor="let slide of slides; let i = index;">
+      <ion-toolbar>
+        <ion-buttons end>
+          <button ion-button color="primary" (click)="slideToEnd()">Skip</button>
+        </ion-buttons>
+      </ion-toolbar>
+      <h1 class="counter">{{i + 1}}</h1>
+      <h2 class="slide-title">{{slide.title}}</h2>
+      <div *ngIf="!getMulti(slide.description)">
+        <p [innerHtml]='slide.description'></p>
+      </div>
+      <div *ngIf="getMulti(slide.description)">
+        <p *ngFor='let desc of (slide.description)' [innerHtml]='desc'></p>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <h1 class="ready">Ready?</h1>
+      <button ion-button large (click)='login()'>Log In</button>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

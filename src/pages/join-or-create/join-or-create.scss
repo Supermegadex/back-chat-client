@@ -1,0 +1,29 @@
+page-join-or-create {
+  @media (max-width: 800px) {
+    .wrapper {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1fr;
+      height: 100%;
+    }
+  }
+  @media (min-width: 800px) {
+    .wrapper {
+      display: grid;
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr 1fr;
+      height: 100%;
+    }
+  }
+  section {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+  h3 {
+    text-align: center;
+  }
+}

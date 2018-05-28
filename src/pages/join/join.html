@@ -1,0 +1,13 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Join a Server</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-input [(ngModel)]="code" name="code" placeholder="Server Code"></ion-input>
+  <button ion-button (click)="join()">Join</button>
+</ion-content>

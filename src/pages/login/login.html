@@ -1,0 +1,14 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-input [(ngModel)]="name" name="name" placeholder="Name" required></ion-input>
+  <ion-input [(ngModel)]="email" name="email" placeholder="Email (opt.)"></ion-input>
+  <button ion-button color="primary" (click)="login()">Log In</button>
+</ion-content>
