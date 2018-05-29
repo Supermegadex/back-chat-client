@@ -14,7 +14,8 @@ import gql from "graphql-tag";
 export class ServerPage {
 
   @ViewChild(Nav) nav: Nav;
-  channels: Array<{name: string, id: string}> = [];
+  channels: Array<{ name: string, id: string }> = [];
+  members: Array<{ name: string, email: string }> = [];
 
   serverId;
   channelId;
@@ -39,12 +40,17 @@ export class ServerPage {
               name
               id
             }
+            members {
+              name
+              email
+            }
           }
         }
       `,
       variables: { id }
     }).subscribe((res: any) => {
       this.channels = res.data.server.channels;
+      this.members = res.data.server.members;
       this.nav.setRoot(
         'channel',
         { channelId: this.channels[0].id },

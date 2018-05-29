@@ -21,6 +21,20 @@ export class ChannelPage {
   loading = true;
   message = "";
   channelId = "";
+  channelQuery = gql`
+    query GetChannel($id: String) {
+      channel(id: $id) {
+        name
+        messages {
+          text
+          author {
+            name
+            email
+          }
+        }
+      }
+    }
+  `
 
   constructor(
     private navParams: NavParams,
@@ -30,20 +44,7 @@ export class ChannelPage {
     console.log('wat');
     this.channelId = navParams.get('channelId');
     apollo.query({
-      query: gql`
-        query GetChannel($id: String) {
-          channel(id: $id) {
-            name
-            messages {
-              text
-              author {
-                name
-                email
-              }
-            }
-          }
-        }
-      `,
+      query: this.channelQuery,
       variables: {
         id: this.channelId
       }
@@ -80,7 +81,11 @@ export class ChannelPage {
         token: await this.storage.get('token'),
         channelId: this.channelId,
         message: this.message
-      }
+      },
+      refetchQueries: [{
+        query: this.channelQuery,
+        variables: { id: this.channelId }
+      }]
     }).subscribe((res: any) => {
       const message = res.data.sendMessage;
       if (message.status === 1) {

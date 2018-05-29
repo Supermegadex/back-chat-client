@@ -28,7 +28,11 @@ export class MyApp {
   ) {
     this.initializeApp();
     event.subscribe('bc:join', serverId => {
-      // this.getServerData(serverId);
+      this.nav.setRoot(
+        'server',
+        { serverId: serverId },
+        { animate: true, direction: 'forward' }
+      )
     });
   }
 

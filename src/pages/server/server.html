@@ -22,15 +22,15 @@
   <ion-menu [content]="content" side="right">
     <ion-header>
       <ion-toolbar>
-        <ion-title>Channels</ion-title>
+        <ion-title>Members</ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content>
       <ion-list>
-        <button menuClose ion-item *ngFor="let channel of channels" (click)="openChannel(channel)">
-          {{channel.name}}
-        </button>
+        <ion-item *ngFor="let member of members">
+          {{member.name}}
+        </ion-item>
       </ion-list>
     </ion-content>
 

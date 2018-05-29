@@ -27,9 +27,7 @@ import { APP_BASE_HREF } from '@angular/common';
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp, {
       locationStrategy: 'path'
-    }),
-    // ChannelPageModule,
-    // LoginPageModule
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

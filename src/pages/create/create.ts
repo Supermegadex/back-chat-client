@@ -1,25 +1,41 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
 
-/**
- * Generated class for the CreatePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
+@IonicPage({
+  name: 'create'
+})
 @Component({
   selector: 'page-create',
   templateUrl: 'create.html',
 })
 export class CreatePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  name;
+
+  constructor(
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private apollo: Apollo
+  ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CreatePage');
+  }
+
+  create() {
+    this.apollo.mutate({
+      mutation: gql`
+        mutation CreateServer($name: String!) {
+          createServer(name: $name) {
+            id
+            code
+          }
+        }
+      `
+    })
   }
 
 }
