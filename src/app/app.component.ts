@@ -4,8 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 
-import { HomePage } from '../pages/home/home';
-import { ChannelPage } from '../pages/channel/channel';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 

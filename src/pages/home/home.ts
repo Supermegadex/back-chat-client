@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { LoginPage } from '../login/login';
 
 @IonicPage({
   name: 'home'

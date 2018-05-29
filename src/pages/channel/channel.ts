@@ -17,7 +17,6 @@ export class ChannelPage {
   loading = true;
 
   constructor(
-    private navCtrl: NavController,
     private navParams: NavParams,
     private apollo: Apollo
   ) {
