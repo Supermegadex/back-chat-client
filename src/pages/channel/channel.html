@@ -6,7 +6,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     </ion-buttons>
-    <ion-title *ngIf="!loading">{{ channel.name }}</ion-title>
+    <ion-title *ngIf="!loading">{{ channelName }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -14,12 +14,14 @@
 
 <ion-content padding>
   <ion-list *ngIf="!loading">
-    <ion-item *ngFor="let message of channel.messages">
+    <ion-item *ngFor="let message of messages">
       <ion-avatar item-start>
-        <img src="img/avatar-cher.png">
+        <img [src]="getAvatar(message.author.email)">
       </ion-avatar>
       <h2>{{message.text}}</h2>
       <p>{{message.author.name}}</p>
     </ion-item>
   </ion-list>
+  <ion-input name="message" [(ngModel)]="message" placeholder="New Message"></ion-input>
+  <button ion-button (click)="sendMessage()">Send Message</button>
 </ion-content>

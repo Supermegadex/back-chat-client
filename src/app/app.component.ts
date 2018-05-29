@@ -13,7 +13,7 @@ import gql from 'graphql-tag';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage = 'home';
+  rootPage = '';
   name = "";
 
   channels: Array<{name: string, id: string}> = [];
@@ -28,7 +28,7 @@ export class MyApp {
   ) {
     this.initializeApp();
     event.subscribe('bc:join', serverId => {
-      this.getServerData(serverId);
+      // this.getServerData(serverId);
     });
   }
 
@@ -59,7 +59,13 @@ export class MyApp {
         console.log(auth);
         if (auth.status === 1) {
           if (auth.server) {
-            this.getServerData(auth.server);
+            // this.getServerData(auth.server);
+            console.log("Good auth. Going to server page...");
+            this.nav.setRoot(
+              'server',
+              { serverId: auth.server },
+              { animate: true, direction: 'forward' }
+            )
           }
           else {
             this.nav.setRoot(
@@ -81,40 +87,40 @@ export class MyApp {
     else {
       this.nav.setRoot(
         'welcome',
-        { }, 
+        { },
         { animate: true, direction: 'forward' }
       )
     }
-  }
+  };
 
-  getServerData(id) {
-    this.apollo.query({
-      query: gql`
-        query GetChannels($id: String) {
-          server(id: $id) {
-            channels {
-              name
-              id
-            }
-          }
-        }
-      `,
-      variables: { id }
-    }).subscribe((res: any) => {
-      this.channels = res.data.server.channels;
-      this.nav.setRoot(
-        'channel',
-        { channelId: this.channels[0].id },
-        { animate: true, direction: 'forward' }
-      );
-    })
-  }
-
-  openChannel(channel) {
-    this.nav.setRoot(
-      'channel',
-      { channelId: channel.id },
-      { animate: true, direction: 'forward' }
-    );
-  }
+  // getServerData(id) {
+  //   this.apollo.query({
+  //     query: gql`
+  //       query GetChannels($id: String) {
+  //         server(id: $id) {
+  //           channels {
+  //             name
+  //             id
+  //           }
+  //         }
+  //       }
+  //     `,
+  //     variables: { id }
+  //   }).subscribe((res: any) => {
+  //     this.channels = res.data.server.channels;
+  //     this.nav.setRoot(
+  //       'channel',
+  //       { channelId: this.channels[0].id },
+  //       { animate: true, direction: 'forward' }
+  //     );
+  //   })
+  // }
+  //
+  // openChannel(channel) {
+  //   this.nav.setRoot(
+  //     'channel',
+  //     { channelId: channel.id },
+  //     { animate: true, direction: 'forward' }
+  //   );
+  // }
 }

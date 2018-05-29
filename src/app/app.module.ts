@@ -12,6 +12,7 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
+import { ENV } from "@app/env";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { IonicStorageModule } from '@ionic/storage';
     ApolloModule,
     HttpLinkModule,
     IonicStorageModule.forRoot(),
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      locationStrategy: 'path'
+    }),
     // ChannelPageModule,
     // LoginPageModule
   ],
@@ -38,7 +41,7 @@ import { IonicStorageModule } from '@ionic/storage';
   ]
 })
 export class AppModule {
-  public debug = true;
+  public debug = ENV.mode === "Development";
 
   constructor(apollo: Apollo, httpLink: HttpLink) {
     apollo.create({
