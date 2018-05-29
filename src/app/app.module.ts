@@ -13,6 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
 import { ENV } from "@app/env";
+import { APP_BASE_HREF } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ENV } from "@app/env";
   providers: [
     StatusBar,
     SplashScreen,
+    {provide: APP_BASE_HREF, useValue: '/app'},
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
