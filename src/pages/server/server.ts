@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, Nav, NavParams } from 'ionic-angular';
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
+import { SocketService } from '../../providers/socket.service';
 
 @IonicPage({
   name: 'server',
@@ -10,6 +11,7 @@ import gql from "graphql-tag";
 @Component({
   selector: 'page-server',
   templateUrl: 'server.html',
+  providers: [SocketService]
 })
 export class ServerPage {
 
@@ -24,11 +26,18 @@ export class ServerPage {
   constructor(
     private params: NavParams,
     private apollo: Apollo,
-
+    private socket: SocketService
   ) {
     this.serverId = params.get('serverId');
     this.channelId = params.get('channelId');
-    this.getServerData(this.serverId);
+    this.initialize();
+  }
+
+  initialize = async () => {
+    const gatewaySuccess = await this.socket.Join(this.serverId);
+    if (gatewaySuccess) {
+      this.getServerData(this.serverId);
+    }
   }
 
   getServerData(id) {

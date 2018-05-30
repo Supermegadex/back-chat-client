@@ -9,7 +9,7 @@ import { Storage } from '@ionic/storage';
 })
 @Component({
   selector: 'page-join',
-  templateUrl: 'join.html',
+  templateUrl: 'join.html'
 })
 export class JoinPage {
 
@@ -45,7 +45,7 @@ export class JoinPage {
         code: this.code,
         token: await this.storage.get('token')
       }
-    }).subscribe((res: any) => {
+    }).subscribe(async (res: any) => {
       const join = res.data.joinServer;
       if (join.status === 1) {
         this.event.publish('bc:join', join.server.id);

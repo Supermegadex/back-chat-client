@@ -26,7 +26,7 @@ import { APP_BASE_HREF } from '@angular/common';
     HttpLinkModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp, {
-      locationStrategy: 'path'
+      locationStrategy: ENV.mode === "Development" ? 'hash' : 'path'
     })
   ],
   bootstrap: [IonicApp],
@@ -36,7 +36,6 @@ import { APP_BASE_HREF } from '@angular/common';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: APP_BASE_HREF, useValue: '/app'},
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

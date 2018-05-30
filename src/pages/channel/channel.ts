@@ -4,6 +4,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { Storage } from "@ionic/storage";
 import * as md5 from 'md5';
+import { SocketService } from '../../providers/socket.service';
 
 @IonicPage({
   name: 'channel',
@@ -12,6 +13,7 @@ import * as md5 from 'md5';
 @Component({
   selector: 'page-channel',
   templateUrl: 'channel.html',
+  providers: [SocketService]
 })
 export class ChannelPage {
 
@@ -39,7 +41,8 @@ export class ChannelPage {
   constructor(
     private navParams: NavParams,
     private apollo: Apollo,
-    private storage: Storage
+    private storage: Storage,
+    private socket: SocketService
   ) {
     console.log('wat');
     this.channelId = navParams.get('channelId');
@@ -53,6 +56,9 @@ export class ChannelPage {
       this.channelName = channel.name;
       this.messages = channel.messages.map(d => d);
       this.loading = false;
+    });
+    socket.onNewMessage().subscribe((message: any) => {
+      console.log(message);
     });
   }
 
