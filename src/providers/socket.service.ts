@@ -11,11 +11,11 @@ export class SocketService {
   public serverCode = '';
 
   constructor() {
-    this.socket = io(this.debug ? 'localhost:3030' : 'https://api.back-chat.com', {
+    this.socket = io(this.debug ? 'localhost:3030' : 'https://gateway.back-chat.com', {
       path: '/'
     });
     this.socket.on('disconnect', () => {
-      
+
     });
   }
 
