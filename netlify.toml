@@ -1,5 +1,23 @@
 [[redirects]]
-  from = "/app/*"
+  from = "/server/*"
+  to = "/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/join/*"
+  to = "/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/create/*"
+  to = "/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/welcome/*"
   to = "/index.html"
   status = 200
   force = true

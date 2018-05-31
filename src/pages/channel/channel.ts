@@ -57,7 +57,7 @@ export class ChannelPage {
       this.messages = channel.messages.map(d => d);
       this.loading = false;
     });
-    socket.onNewMessage().subscribe((message: any) => {
+    this.socket.onNewMessage().subscribe((message: any) => {
       console.log(message);
     });
   }

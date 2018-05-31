@@ -38,7 +38,7 @@ export class ServerPage {
     if (gatewaySuccess) {
       this.getServerData(this.serverId);
     }
-  }
+  };
 
   getServerData(id) {
     this.apollo.query({
@@ -62,7 +62,7 @@ export class ServerPage {
       this.members = res.data.server.members;
       this.nav.setRoot(
         'channel',
-        { channelId: this.channels[0].id },
+        { channelId: this.channels[0].id, serverId: this.serverId },
         { animate: true, direction: 'forward' }
       );
     })

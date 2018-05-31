@@ -32,11 +32,26 @@ export class SocketService {
     });
   }
 
+  sendMessage(data) {
+    console.log("why");
+    return new Promise((resolve, reject) => {
+      console.log("why2");
+      this.socket.emit('send-message', data, res => {
+        if (res) {
+          resolve(true);
+        }
+        else {
+          reject(false);
+        }
+      });
+    });
+  }
+
   onNewMessage() {
     console.log('listening for messages');
     return Observable.create(observer => {
       this.socket.on('new-message', data => {
-        console.log("I GOT A NEW MESSAGE!")
+        console.log("I GOT A NEW MESSAGE!");
         observer.next(data);
       });
     });
