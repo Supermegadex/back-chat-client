@@ -8,7 +8,7 @@ export class SocketService {
 
   public socket: SocketIOClient.Socket;
   public debug = ENV.mode === "Development";
-  public serverCode = '';
+  static serverCode = '';
 
   constructor() {
     this.socket = io(this.debug ? 'localhost:3030' : 'https://gateway.back-chat.com', {
@@ -17,9 +17,11 @@ export class SocketService {
     this.socket.on('disconnect', () => {
 
     });
+    if (SocketService.serverCode) this.Join(SocketService.serverCode);
   }
 
   Join(server: string) {
+    SocketService.serverCode = server;
     return new Promise((resolve, reject) => {
       this.socket.emit('join', server, res => {
         if (res) {
@@ -29,6 +31,16 @@ export class SocketService {
           reject(false);
         }
       });
+    });
+  }
+
+  Disconnect() {
+    this.socket.disconnect();
+  }
+
+  Debug() {
+    this.socket.emit('debug', res => {
+      console.log(res);
     });
   }
 

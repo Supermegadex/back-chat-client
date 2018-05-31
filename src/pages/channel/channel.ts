@@ -26,8 +26,10 @@ export class ChannelPage {
   channelQuery = gql`
     query GetChannel($id: String) {
       channel(id: $id) {
+        id
         name
         messages {
+          id
           text
           author {
             name
@@ -36,7 +38,7 @@ export class ChannelPage {
         }
       }
     }
-  `
+  `;
 
   constructor(
     private navParams: NavParams,
@@ -58,7 +60,11 @@ export class ChannelPage {
       this.loading = false;
     });
     this.socket.onNewMessage().subscribe((message: any) => {
-      console.log(message);
+      if (message.channel === this.channelId) {
+        if (!this.messages.find(msg => msg.id === message.id)) {
+          this.messages.push(message);
+        }
+      }
     });
   }
 
@@ -68,12 +74,14 @@ export class ChannelPage {
 
   sendMessage = async () => {
     console.log(this.channel);
+    this.socket.Debug();
     this.apollo.mutate({
       mutation: gql`
         mutation SendMessage($token: String!, $channelId: String!, $message: String!) {
           sendMessage(text: $message, token: $token, channel: $channelId) {
             status
             message {
+              id
               text
               author {
                 name
@@ -88,10 +96,10 @@ export class ChannelPage {
         channelId: this.channelId,
         message: this.message
       },
-      refetchQueries: [{
-        query: this.channelQuery,
-        variables: { id: this.channelId }
-      }]
+      // refetchQueries: [{
+      //   query: this.channelQuery,
+      //   variables: { id: this.channelId }
+      // }]
     }).subscribe((res: any) => {
       const message = res.data.sendMessage;
       if (message.status === 1) {
@@ -101,6 +109,9 @@ export class ChannelPage {
     })
   };
 
+  ionViewWillLeave() {
+    this.socket.Disconnect();
+  }
 
   getAvatar(email) {
     const emailRegex = new RegExp(["[a-z0-9!#$%&'*+/=?^_`{|}~-]+",
