@@ -13,7 +13,7 @@ import gql from 'graphql-tag';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage = '';
+  rootPage = 'loading';
   name = "";
 
   channels: Array<{name: string, id: string}> = [];
@@ -28,11 +28,11 @@ export class MyApp {
   ) {
     this.initializeApp();
     event.subscribe('bc:join', serverId => {
-      this.nav.setRoot(
-        'server',
-        { serverId: serverId },
-        { animate: true, direction: 'forward' }
-      )
+      // this.nav.setRoot(
+      //   'server',
+      //   { serverId: serverId },
+      //   { animate: true, direction: 'forward' }
+      // )
     });
   }
 
@@ -42,59 +42,6 @@ export class MyApp {
       this.splashScreen.hide();
     });
     console.log(this.nav);
-    await this.storage.ready();
-    const token = await this.storage.get('token');
-    if (token) {
-      this.apollo.query({
-        query: gql`
-          query Authenticate($token: String!) {
-            auth(token: $token) {
-              status
-              server
-              user {
-                name
-              }
-            }
-          }
-        `,
-        variables: { token }
-      }).subscribe((res: any) => {
-        const auth = res.data.auth;
-        console.log(auth);
-        if (auth.status === 1) {
-          if (auth.server) {
-            // this.getServerData(auth.server);
-            console.log("Good auth. Going to server page...");
-            this.nav.setRoot(
-              'server',
-              { serverId: auth.server },
-              { animate: true, direction: 'forward' }
-            )
-          }
-          else {
-            this.nav.setRoot(
-              'joc',
-              { error: auth.status },
-              { animate: true, direction: 'forward' }
-            )
-          }
-        }
-        else {
-          this.nav.setRoot(
-            'login',
-            { error: auth.status },
-            { animate: true, direction: 'forward' }
-          )
-        }
-      })
-    }
-    else {
-      this.nav.setRoot(
-        'welcome',
-        { },
-        { animate: true, direction: 'forward' }
-      )
-    }
   };
 
   // getServerData(id) {
