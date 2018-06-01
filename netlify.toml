@@ -21,3 +21,15 @@
   to = "/index.html"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/auth"
+  to = "/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/login"
+  to = "/index.html"
+  status = 200
+  force = true
