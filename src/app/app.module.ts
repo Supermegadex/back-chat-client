@@ -36,6 +36,7 @@ import { APP_BASE_HREF } from '@angular/common';
   providers: [
     StatusBar,
     SplashScreen,
+    {provide: APP_BASE_HREF, useValue: '/'},
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
